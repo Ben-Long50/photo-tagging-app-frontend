@@ -1,0 +1,30 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#root {
+  --base-color: #121212;
+  background-color: var(--base-color);
+}
+
+.game-image {
+  min-width: 100vw;
+}
+
+.cursor-follower {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  transform: translateX(-100%) translateY(-100%);
+  border: solid black 1px;
+  min-height: 100px;
+  min-width: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--base-color);
+}
