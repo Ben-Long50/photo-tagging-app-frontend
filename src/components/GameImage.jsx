@@ -1,12 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import Icon from '@mdi/react';
 import { mdiCheckCircleOutline, mdiCloseCircleOutline } from '@mdi/js';
+import { AuthContext } from './AuthContext';
+import { useParams } from 'react-router-dom';
 
 const GameImage = (props) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [menuPosition, setMenuPostition] = useState({ x: 0, y: 0 });
   const [imageDims, setImageDims] = useState({ x: 0, y: 0 });
   const [clickedCoords, setClickedCoords] = useState([]);
+  const { apiUrl } = useContext(AuthContext);
+  const { levelId } = useParams();
 
   const imgRef = useRef(null);
   const formRef = useRef(null);
@@ -38,13 +42,14 @@ const GameImage = (props) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const character = e.target.character.value;
     try {
       const selectedCoordinates = {
+        name: character,
         x: menuPosition.x / imageDims.x,
         y: menuPosition.y / imageDims.y,
       };
-      console.log(selectedCoordinates);
-      const response = await fetch(`${apiUrl}/levels/:levelId`, {
+      const response = await fetch(`${apiUrl}/levels/${levelId}/targets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +57,7 @@ const GameImage = (props) => {
         body: JSON.stringify(selectedCoordinates),
       });
       const result = await response.json();
-      if (result.ok) {
+      if (response.ok) {
         setClickedCoords([
           ...clickedCoords,
           {
@@ -81,6 +86,11 @@ const GameImage = (props) => {
 
   const handleClick = () => {
     toggleSelectionMenu();
+    const selectedCoordinates = {
+      x: menuPosition.x / imageDims.x,
+      y: menuPosition.y / imageDims.y,
+    };
+    console.log(selectedCoordinates);
   };
 
   return (
@@ -107,19 +117,19 @@ const GameImage = (props) => {
         onSubmit={handleFormSubmit}
       >
         <select name="character" id="character">
-          <option className="menu-option" value="cat">
+          <option className="menu-option" value="Moustache Cat">
             Moustache Cat
           </option>
-          <option className="menu-option" value="crab">
+          <option className="menu-option" value="Crab">
             Crab
           </option>
-          <option className="menu-option" value="bulldog">
+          <option className="menu-option" value="Bulldog">
             Bulldog
           </option>
-          <option className="menu-option" value="donkey">
+          <option className="menu-option" value="Straw Hat Donkey">
             Straw Hat Donkey
           </option>
-          <option className="menu-option" value="chameleon">
+          <option className="menu-option" value="Pink Chameleon">
             Pink Chameleon
           </option>
         </select>
@@ -149,7 +159,7 @@ const GameImage = (props) => {
             >
               <Icon
                 path={mdiCheckCircleOutline}
-                size="6rem"
+                size="4rem"
                 color="green"
               ></Icon>
             </div>
@@ -164,7 +174,7 @@ const GameImage = (props) => {
                 left: `calc(${coord.x}px)`,
               }}
             >
-              <Icon path={mdiCloseCircleOutline} size="6rem" color="red"></Icon>
+              <Icon path={mdiCloseCircleOutline} size="4rem" color="red"></Icon>
             </div>
           );
         }

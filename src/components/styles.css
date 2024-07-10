@@ -3,8 +3,8 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   min-width: 100vw;
+  min-height: 100vh;
 }
 
 #root {
@@ -13,6 +13,10 @@ body,
 }
 
 .game-image {
+  box-sizing: border-box;
+  margin: 4rem;
+  padding: 0;
+  background-color: var(--base-color);
   min-width: 100vw;
 }
 
@@ -76,6 +80,15 @@ body,
   gap: 4rem;
 }
 
+.level-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+}
+
 .level-button {
   width: 500px;
   height: 500px;
@@ -95,4 +108,50 @@ body,
 .level-button-img {
   height: 500px;
   object-fit: cover;
+}
+
+.level-name {
+  margin: 0;
+  padding: 0;
+  font-size: 48px;
+  color: white;
+}
+
+.level-info {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 16px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  border: solid rgb(79, 79, 79) 2px;
+  border-radius: 16px;
+}
+
+.target-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.target-card {
+  width: 100px;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.target-name {
+  text-align: center;
+}
+
+.target-image {
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: solid white 2px;
 }

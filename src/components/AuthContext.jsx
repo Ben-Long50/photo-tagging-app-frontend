@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
     return token ? true : false;
   });
 
-  const apiUrl = 'https://localhost:3000';
+  const apiUrl = 'http://localhost:3000';
 
   const login = () => {
     setIsAuthenticated(true);

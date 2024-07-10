@@ -8,19 +8,16 @@ const Homepage = () => {
     <div className="level-select">
       {levels.map((level) => {
         return (
-          <LevelButton
-            key={level._id}
-            id={level._id}
-            name={level.name}
-            imageUrl={level.imageUrl}
-          />
+          <div className="level-card" key={level._id}>
+            <h2>{level.name}</h2>
+            <LevelButton
+              id={level._id}
+              name={level.name}
+              imageUrl={level.image}
+            />
+          </div>
         );
       })}
-      <LevelButton id={1} imageUrl="./public/images/port_city.png" />
-      <LevelButton
-        id={2}
-        imageUrl="./public/images/old_house_by_the_river.png"
-      />
     </div>
   );
 };
