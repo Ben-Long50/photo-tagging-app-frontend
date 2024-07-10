@@ -21,10 +21,78 @@ body,
   padding: 0;
   position: absolute;
   transform: translateX(-100%) translateY(-100%);
-  border: solid black 1px;
-  min-height: 100px;
-  min-width: 100px;
+  /* border: solid black 1px; */
+  min-height: 125px;
+  min-width: 125px;
   border-radius: 50%;
   overflow: hidden;
   background-color: var(--base-color);
+}
+
+.selection-menu {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.selection-menu > * {
+  color: white;
+  background-color: var(--base-color);
+  font-size: 1.25rem;
+}
+
+.selection-menu > select {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+}
+
+.submit-button {
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-icon {
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.level-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+.level-button {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: solid grey 4px;
+  border-radius: 2rem;
+  background-color: var(--base-color);
+}
+
+.level-button:hover {
+  background-color: rgb(78, 78, 78);
+}
+
+.level-button-img {
+  height: 500px;
+  object-fit: cover;
 }
