@@ -54,7 +54,7 @@ const LevelPage = () => {
         </div>
       </div>
 
-      <GameImage imageUrl={level.image} />
+      <GameImage targets={targets} imageUrl={level.image} />
     </div>
   );
 };

@@ -117,21 +117,13 @@ const GameImage = (props) => {
         onSubmit={handleFormSubmit}
       >
         <select name="character" id="character">
-          <option className="menu-option" value="Moustache Cat">
-            Moustache Cat
-          </option>
-          <option className="menu-option" value="Crab">
-            Crab
-          </option>
-          <option className="menu-option" value="Bulldog">
-            Bulldog
-          </option>
-          <option className="menu-option" value="Straw Hat Donkey">
-            Straw Hat Donkey
-          </option>
-          <option className="menu-option" value="Pink Chameleon">
-            Pink Chameleon
-          </option>
+          {props.targets.map((target, index) => {
+            return (
+              <option key={index} className="menu-option" value={target.name}>
+                {target.name}
+              </option>
+            );
+          })}
         </select>
         <button className="submit-button" type="submit">
           <Icon path={mdiCheckCircleOutline} size="2.5rem" color="white"></Icon>
