@@ -9,6 +9,14 @@ body,
 
 #root {
   --base-color: #121212;
+  --lvl-1-color: #1e1e1e;
+  --lvl-2-color: #2a2a2a;
+  --text-primary: #ebebeb;
+  --text-secondary: #b3b3b3;
+  --box-shadow: 0px 3px 7px 0px rgb(0, 0, 0);
+  --box-shadow-expanded: 0px 5px 10px 0px rgb(0, 0, 0);
+  --color-accent: rgb(36, 180, 63);
+  --color-accent-muted: rgba(36, 180, 63, 0.7);
   background-color: var(--base-color);
 }
 
@@ -124,7 +132,7 @@ body,
   left: 0;
   margin: 16px;
   padding: 16px;
-  background-color: #1e1e1e;
+  background-color: var(--lvl-1-color);
   border: solid rgb(79, 79, 79) 2px;
   border-radius: 16px;
 }

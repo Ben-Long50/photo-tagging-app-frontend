@@ -1,0 +1,86 @@
+.form-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.form {
+  margin-top: 4rem;
+  color: var(--text-primary);
+  background-color: var(--lvl-1-color);
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--box-shadow);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.post-form {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.form-field,
+.error-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error-list {
+  background-color: var(--color-lvl-1);
+  box-shadow: var(--box-shadow);
+  color: red;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.error-list > * {
+  margin: 0;
+  padding: 0;
+}
+
+.submit-button {
+  align-self: center;
+  width: auto;
+}
+
+input,
+select,
+option,
+label {
+  font-size: 1.25rem;
+}
+
+input#title,
+input#firstName,
+input#lastName,
+input#username,
+input#password,
+input#confirmPassword,
+select,
+option {
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: var(--color-base);
+  padding: 0.5rem;
+}
+
+@media (max-width: 800px) {
+  .form-layout {
+    gap: 1rem;
+  }
+}

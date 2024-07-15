@@ -1,0 +1,18 @@
+.category-list {
+  box-sizing: border-box;
+  border-radius: 1.5rem;
+  margin: 0;
+  padding: 0 0.25rem;
+  font-size: 2rem;
+  gap: 1rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-list > li {
+  background-color: transparent;
+  width: clamp(175px, 15vw, 200px);
+}

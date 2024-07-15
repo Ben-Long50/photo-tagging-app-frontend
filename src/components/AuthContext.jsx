@@ -10,16 +10,16 @@ const AuthProvider = ({ children }) => {
 
   const apiUrl = 'http://localhost:3000';
 
-  const login = () => {
+  const signin = () => {
     setIsAuthenticated(true);
   };
 
-  const logout = () => {
+  const signout = () => {
     setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, apiUrl }}>
+    <AuthContext.Provider value={{ isAuthenticated, signin, signout, apiUrl }}>
       {children}
     </AuthContext.Provider>
   );

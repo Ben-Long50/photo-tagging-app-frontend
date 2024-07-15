@@ -1,12 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import AuthProvider from './AuthContext';
 import LevelProvider from './LevelContext';
-import './styles.css';
+import '../styles/styles.css';
+import Navigation from './Navigation';
 
 const App = () => {
   return (
     <AuthProvider>
       <LevelProvider>
+        <Navigation />
         <Outlet />
       </LevelProvider>
     </AuthProvider>
