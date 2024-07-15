@@ -37,8 +37,8 @@ const SignupForm = () => {
       });
       const result = await response.json();
       if (response.ok) {
-        console.log('Signup Successful:', result);
-        navigate('/login');
+        console.log(result);
+        navigate('/signin');
       } else {
         const errorArray = result.map((error) => {
           return error.msg;

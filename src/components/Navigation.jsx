@@ -6,12 +6,11 @@ import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 
 const Navigation = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, signout } = useContext(AuthContext);
 
   const handleLogout = () => {
     if (isAuthenticated) {
-      localStorage.clear();
-      logout();
+      signout();
     }
   };
 

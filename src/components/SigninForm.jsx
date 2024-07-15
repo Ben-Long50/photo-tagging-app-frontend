@@ -37,7 +37,7 @@ const SigninForm = () => {
         console.log('Response:', result.token);
         localStorage.setItem('token', result.token);
         signin();
-        navigate('/');
+        navigate('/levels');
       } else {
         const errorArray = result.map((error) => {
           return error.msg;

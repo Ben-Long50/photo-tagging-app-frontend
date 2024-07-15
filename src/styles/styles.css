@@ -21,8 +21,8 @@ body,
 }
 
 .game-image {
-  box-sizing: border-box;
-  margin: 4rem;
+  /* box-sizing: border-box; */
+  /* margin: 2rem; */
   padding: 0;
   background-color: var(--base-color);
   min-width: 100vw;
@@ -32,7 +32,7 @@ body,
   margin: 0;
   padding: 0;
   position: absolute;
-  transform: translateX(-100%) translateY(-100%);
+  transform: translateX(-100%) translateY(-50%);
   /* border: solid black 1px; */
   min-height: 125px;
   min-width: 125px;
@@ -42,6 +42,7 @@ body,
 }
 
 .selection-menu {
+  transform: translateY(calc(50px + 50%));
   margin: 0;
   padding: 0;
   position: absolute;
@@ -74,7 +75,7 @@ body,
 
 .result-icon {
   position: absolute;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(calc(5px + 50%));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,6 +127,7 @@ body,
 }
 
 .level-info {
+  color: white;
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -135,6 +137,7 @@ body,
   background-color: var(--lvl-1-color);
   border: solid rgb(79, 79, 79) 2px;
   border-radius: 16px;
+  margin-top: 5.5rem;
 }
 
 .target-container {
@@ -146,7 +149,7 @@ body,
 .target-card {
   width: 100px;
   height: 100%;
-  color: white;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,4 +165,11 @@ body,
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: solid white 2px;
+}
+
+.leaderboard-dialog {
+  color: var(--text-primary);
+  background-color: var(--lvl-1-color);
+  border: solid rgb(79, 79, 79) 2px;
+  border-radius: 16px;
 }

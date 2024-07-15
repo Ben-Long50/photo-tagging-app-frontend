@@ -9,6 +9,7 @@ import Homepage from './components/Homepage';
 import LevelPage from './components/LevelPage';
 import SigninForm from './components/SigninForm';
 import SignupForm from './components/SignupForm';
+import Leaderboard from './components/Leaderboard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SigninForm />} />
       <Route path="/signup" element={<SignupForm />} />
       <Route index path="/levels" element={<Homepage />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/levels/:levelId" element={<LevelPage />} />
     </Route>,
   ),
