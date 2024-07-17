@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { LevelContext } from './LevelContext';
 import { AuthContext } from './AuthContext';
+import '../styles/leaderboard.css';
 
 const Leaderboard = () => {
   const { levels } = useContext(LevelContext);
@@ -36,27 +37,35 @@ const Leaderboard = () => {
   console.log(scores);
 
   return (
-    <div>
-      <h1>Leaderboard</h1>
-      {scores.map((item) => {
-        return (
-          <>
-            <h2>{item.level}</h2>
-            <div>
-              {item.scores.map((score, index) => {
-                while (index <= 9) {
-                  return (
-                    <>
-                      <h3>{`${index + 1}. ${score.user.username} finishing at ${score.time} seconds`}</h3>
-                      {index < 9 && <hr />}
-                    </>
-                  );
-                }
-              })}
+    <div className="layout">
+      <h1 className="leaderboard-header">Leaderboard</h1>
+      <div className="leaderboard-layout">
+        {scores.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className={`leaderboard ${index % 2 === 0 ? 'left' : 'right'}`}
+            >
+              <h3>{item.level}</h3>
+              <div className="leader-list">
+                {item.scores.map((score, index) => {
+                  while (index <= 9) {
+                    return (
+                      <>
+                        <div className="leader-item">
+                          <h4>{`${index + 1}.  ${score.user.username}`}</h4>
+                          <h4>{`${score.time} seconds`}</h4>
+                        </div>
+                        {index < item.scores.length - 1 && <hr />}
+                      </>
+                    );
+                  }
+                })}
+              </div>
             </div>
-          </>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

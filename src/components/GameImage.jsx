@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 const GameImage = (props) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [menuPosition, setMenuPostition] = useState({ x: 0, y: 0 });
+  const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
   const [imageDims, setImageDims] = useState({ x: 0, y: 0 });
   const [clickedCoords, setClickedCoords] = useState([]);
   const { apiUrl } = useContext(AuthContext);
@@ -14,23 +15,23 @@ const GameImage = (props) => {
 
   const imgRef = useRef(null);
   const formRef = useRef(null);
-
-  // const getMousePosition = (e) => {
-  //   setMousePosition({
-  //     x: e.nativeEvent.offsetX,
-  //     y: e.nativeEvent.offsetY,
-  //   });
-  // };
+  const layoutRef = useRef(null);
 
   const getImgWidth = (e) => {
     if (imgRef.current) {
+      // Get images position relative to the viewport
+      const imageRect = imgRef.current.getBoundingClientRect();
       setImageDims({
-        x: imgRef.current.offsetWidth,
-        y: imgRef.current.offsetHeight,
+        x: imageRect.width,
+        y: imageRect.height,
+      });
+      setScrollPosition({
+        x: layoutRef.current.scrollLeft,
+        y: layoutRef.current.scrollTop,
       });
       setMousePosition({
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY,
+        x: e.clientX - imageRect.x - scrollPosition.x,
+        y: e.clientY - imageRect.y - scrollPosition.y,
       });
     }
   };
@@ -39,7 +40,10 @@ const GameImage = (props) => {
     if (formRef.current.style.display === 'flex') {
       formRef.current.style.display = 'none';
     } else {
-      setMenuPostition({ x: mousePosition.x, y: mousePosition.y });
+      setMenuPostition({
+        x: mousePosition.x + scrollPosition.x,
+        y: mousePosition.y + scrollPosition.y,
+      });
       formRef.current.style.display = 'flex';
     }
   };
@@ -89,24 +93,35 @@ const GameImage = (props) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    if (imgRef.current) {
+      // Get images position relative to the viewport
+      const imageRect = imgRef.current.getBoundingClientRect();
+      setImageDims({
+        x: imageRect.width,
+        y: imageRect.height,
+      });
+      setScrollPosition({
+        x: layoutRef.current.scrollLeft,
+        y: layoutRef.current.scrollTop,
+      });
+      setMousePosition({
+        x: e.clientX - imageRect.x - scrollPosition.x,
+        y: e.clientY - imageRect.y - scrollPosition.y,
+      });
+    }
     toggleSelectionMenu();
-    const selectedCoordinates = {
-      x: menuPosition.x / imageDims.x,
-      y: menuPosition.y / imageDims.y,
-    };
-    console.log(selectedCoordinates);
   };
 
   return (
-    <div>
+    <div ref={layoutRef} className="layout" onMouseMove={getImgWidth}>
       <div
         className="cursor-follower"
         style={{
-          top: `${mousePosition.y}px`,
-          left: `${mousePosition.x}px`,
+          top: `calc(${mousePosition.y}px + 3rem)`,
+          left: `calc(${mousePosition.x}px + 3rem)`,
           backgroundImage: `url(${props.imageUrl})`,
-          backgroundPosition: `${-mousePosition.x * 2.5 + 50}px ${-mousePosition.y * 2.5 + 50}px`,
+          backgroundPosition: `${(-mousePosition.x - scrollPosition.x) * 2.5 + 50}px ${(-mousePosition.y - scrollPosition.y) * 2.5 + 50}px`,
           backgroundSize: `${imageDims.x * 2.5}px`,
         }}
       />
@@ -115,8 +130,8 @@ const GameImage = (props) => {
         method="post"
         className="selection-menu"
         style={{
-          top: `${menuPosition.y}px`,
-          left: `${menuPosition.x}px`,
+          top: `calc(${menuPosition.y - layoutRef.current?.scrollTop}px + 3rem)`,
+          left: `calc(${menuPosition.x - layoutRef.current?.scrollLeft}px + 3rem)`,
           display: 'none',
         }}
         onSubmit={handleFormSubmit}
@@ -140,7 +155,6 @@ const GameImage = (props) => {
         src={props.imageUrl}
         alt="Port City"
         onClick={handleClick}
-        onMouseMove={getImgWidth}
       />
       {clickedCoords.map((coord, index) => {
         if (coord.type === 'success') {
@@ -149,8 +163,8 @@ const GameImage = (props) => {
               key={index}
               className="result-icon"
               style={{
-                top: `calc(${coord.y}px)`,
-                left: `calc(${coord.x}px)`,
+                top: `calc(${coord.y - layoutRef.current?.scrollTop}px + 3rem)`,
+                left: `calc(${coord.x - layoutRef.current?.scrollLeft}px + 3rem)`,
               }}
             >
               <Icon
@@ -166,8 +180,8 @@ const GameImage = (props) => {
               key={index}
               className="result-icon"
               style={{
-                top: `calc(${coord.y}px)`,
-                left: `calc(${coord.x}px)`,
+                top: `calc(${coord.y - layoutRef.current?.scrollTop}px + 3rem)`,
+                left: `calc(${coord.x - layoutRef.current?.scrollLeft}px + 3rem)`,
               }}
             >
               <Icon path={mdiCloseCircleOutline} size="4rem" color="red"></Icon>

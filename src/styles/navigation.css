@@ -1,6 +1,9 @@
 .navbar {
-  position: sticky;
+  box-sizing: border-box;
+  width: 100vw;
+  position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -32,5 +35,6 @@
 @media (max-width: 800px) {
   .navbar {
     gap: 1rem;
+    justify-content: center;
   }
 }

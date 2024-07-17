@@ -67,7 +67,7 @@ const SigninForm = () => {
             onChange={handleChange}
           />
         </Form>
-        <p>
+        <p className="transfer-text">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
         {errors.length > 0 && (

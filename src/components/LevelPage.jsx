@@ -4,6 +4,8 @@ import { LevelContext } from './LevelContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { jwtDecode } from 'jwt-decode';
+import Icon from '@mdi/react';
+import { mdiCheckCircleOutline, mdiCloseCircleOutline } from '@mdi/js';
 import Button from './Button';
 
 const LevelPage = () => {
@@ -75,6 +77,7 @@ const LevelPage = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(scoreData),
         });
@@ -111,16 +114,13 @@ const LevelPage = () => {
   return (
     <div>
       <div className="level-info">
-        <div>
-          <h1 className="level-name">{level.name}</h1>
-          <h2>{`Time: ${timer} seconds`}</h2>
-          <h2>{`Successes: ${successes}`}</h2>
-        </div>
+        <h2 className="level-name">{level.name}</h2>
+        <h4>{`Time: ${timer}`}</h4>
         <div className="target-container">
           {targets.map((target, index) => {
             return (
               <div key={index} className="target-card">
-                <h2 className="target-name">{target.name}</h2>
+                <h5 className="target-name">{target.name}</h5>
                 <img
                   src={target.image}
                   alt={target.name}
@@ -134,20 +134,28 @@ const LevelPage = () => {
       <dialog className="leaderboard-dialog" ref={dialogRef}>
         <h1 className="dialog-title">Game Over!</h1>
         {isAuthenticated ? (
-          <p>{`You finished the game with a time of ${timer} seconds`}</p>
+          <h4>{`You finished the game with a time of ${timer} seconds`}</h4>
         ) : (
-          <p>Log in to record your time and try for a high score</p>
+          <h4>Log in to record your time and try for a high score</h4>
         )}
-        <h2>Top Scores:</h2>
-        {scores.map((score, index) => {
-          return (
-            <>
-              <h3>{`${index + 1}. ${score.user.username} finishing at ${score.time} seconds`}</h3>
-              {index < 9 && <hr />}
-            </>
-          );
-        })}
-        <Button onClick={handleClose}>Close</Button>
+
+        <div className="leader-list">
+          <h3>Top Scores:</h3>
+          {scores.map((score, index) => {
+            return (
+              <>
+                <div className="leader-item">
+                  <h4>{`${index + 1}. ${score.user.username}`}</h4>
+                  <h4>{`${score.time} seconds`}</h4>
+                </div>
+                {index < scores.length - 1 && <hr />}
+              </>
+            );
+          })}
+          <Button classes="close-button" onClick={handleClose}>
+            Close
+          </Button>
+        </div>
       </dialog>
       <GameImage
         targets={targets}

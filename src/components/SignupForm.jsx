@@ -86,8 +86,8 @@ const SignupForm = () => {
             onChange={handleChange}
           />
         </Form>
-        <p>
-          Already have an account? <Link to="/signin">Log in</Link>
+        <p className="transfer-text">
+          Already have an account? <Link to="/signin">Sign in</Link>
         </p>
         {errors.length > 0 && (
           <div className="error-list">
