@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
     return token ? true : false;
   });
 
-  const apiUrl = 'http://localhost:3000';
+  const apiUrl = 'https://critter-finder.adaptable.app';
 
   const signin = () => {
     setIsAuthenticated(true);
