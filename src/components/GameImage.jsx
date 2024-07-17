@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import Icon from '@mdi/react';
 import { mdiCheckCircleOutline, mdiCloseCircleOutline } from '@mdi/js';
 import { AuthContext } from './AuthContext';
@@ -16,6 +16,28 @@ const GameImage = (props) => {
   const imgRef = useRef(null);
   const formRef = useRef(null);
   const layoutRef = useRef(null);
+  const hiddenInputRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (layoutRef.current) {
+        setScrollPosition({
+          x: layoutRef.current.scrollLeft,
+          y: layoutRef.current.scrollTop,
+        });
+      }
+    };
+
+    if (layoutRef.current) {
+      layoutRef.current.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (layoutRef.current) {
+        layoutRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   const getImgWidth = (e) => {
     if (imgRef.current) {
@@ -24,10 +46,6 @@ const GameImage = (props) => {
       setImageDims({
         x: imageRect.width,
         y: imageRect.height,
-      });
-      setScrollPosition({
-        x: layoutRef.current.scrollLeft,
-        y: layoutRef.current.scrollTop,
       });
       setMousePosition({
         x: e.clientX - imageRect.x - scrollPosition.x,
@@ -50,7 +68,7 @@ const GameImage = (props) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const character = e.target.character.value;
+    const character = hiddenInputRef.current.value;
     try {
       const selectedCoordinates = {
         name: character,
@@ -76,6 +94,16 @@ const GameImage = (props) => {
           },
         ]);
         props.setSuccesses(props.successes + 1);
+        const newTargets = [];
+        props.targets.map((target) => {
+          if (target.name != character) {
+            newTargets.push(target);
+          }
+        });
+        console.log(character);
+        console.log(props.targets);
+        console.log(newTargets);
+        props.setTargets(newTargets);
       } else {
         setClickedCoords([
           ...clickedCoords,
@@ -93,6 +121,12 @@ const GameImage = (props) => {
     }
   };
 
+  const updateInput = (e) => {
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.value = e.target.textContent;
+    }
+  };
+
   const handleClick = (e) => {
     if (imgRef.current) {
       // Get images position relative to the viewport
@@ -100,10 +134,6 @@ const GameImage = (props) => {
       setImageDims({
         x: imageRect.width,
         y: imageRect.height,
-      });
-      setScrollPosition({
-        x: layoutRef.current.scrollLeft,
-        y: layoutRef.current.scrollTop,
       });
       setMousePosition({
         x: e.clientX - imageRect.x - scrollPosition.x,
@@ -136,18 +166,28 @@ const GameImage = (props) => {
         }}
         onSubmit={handleFormSubmit}
       >
-        <select name="character" id="character">
-          {props.targets.map((target, index) => {
-            return (
-              <option key={index} className="menu-option" value={target.name}>
+        <input
+          ref={hiddenInputRef}
+          type="text"
+          hidden
+          name="character"
+          id="character"
+        />
+        {props.targets.map((target, index) => {
+          return (
+            <>
+              <button
+                key={index}
+                className="menu-option"
+                onClick={updateInput}
+                type="submit"
+              >
                 {target.name}
-              </option>
-            );
-          })}
-        </select>
-        <button className="submit-button" type="submit">
-          <Icon path={mdiCheckCircleOutline} size="2.5rem" color="white"></Icon>
-        </button>
+              </button>
+              {index < props.targets.length - 1 && <hr />}
+            </>
+          );
+        })}
       </form>
       <img
         ref={imgRef}

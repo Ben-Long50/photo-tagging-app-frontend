@@ -96,35 +96,25 @@ p {
 }
 
 .selection-menu {
-  transform: translateY(calc(50px + 50%));
+  transform: translateY(calc(-20px + 50%));
+  background-color: var(--base-color);
   margin: 0;
   padding: 0;
   position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  border-radius: 0.5rem;
 }
 
-.selection-menu > * {
-  color: white;
-  background-color: var(--base-color);
-  font-size: 1.25rem;
-}
-
-.selection-menu > select {
+.selection-menu > button {
   box-sizing: border-box;
+  color: var(--text-primary);
+  background-color: transparent;
+  font-size: 1.5rem;
+  width: 100%;
   padding: 0.5rem;
   border: none;
-  outline: none;
-}
-
-.submit-button {
-  height: 100%;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .result-icon {
@@ -137,6 +127,7 @@ p {
   border-radius: 50%;
   background-color: var(--base-color);
   border: solid white 1px;
+  pointer-events: none;
 }
 
 .level-select {

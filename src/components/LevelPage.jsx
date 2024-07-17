@@ -45,7 +45,7 @@ const LevelPage = () => {
   useEffect(() => {
     const key = setInterval(() => {
       setTimer((count) => {
-        if (successes >= targets.length) {
+        if (successes >= 5) {
           clearInterval(key);
           return count;
         }
@@ -120,6 +120,7 @@ const LevelPage = () => {
           {targets.map((target, index) => {
             return (
               <div key={index} className="target-card">
+                {}
                 <h5 className="target-name">{target.name}</h5>
                 <img
                   src={target.image}
@@ -159,6 +160,7 @@ const LevelPage = () => {
       </dialog>
       <GameImage
         targets={targets}
+        setTargets={setTargets}
         imageUrl={level.image}
         successes={successes}
         setSuccesses={setSuccesses}
